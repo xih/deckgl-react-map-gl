@@ -45,6 +45,16 @@ type DataT = {
   };
 };
 
+function DeckGLOverlay(
+  props: MapboxOverlayProps & {
+    interleaved?: boolean;
+  },
+) {
+  const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay(props));
+  overlay.setProps(props);
+  return null;
+}
+
 export default function DeckMap() {
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
   const darkMapStyle = "mapbox://styles/mapbox/dark-v11";
@@ -54,16 +64,6 @@ export default function DeckMap() {
     marginBottom: "10em",
     zIndex: 1,
   };
-
-  function DeckGLOverlay(
-    props: MapboxOverlayProps & {
-      interleaved?: boolean;
-    },
-  ) {
-    const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay(props));
-    overlay.setProps(props);
-    return null;
-  }
 
   const arcLayer = new ArcLayer<DataT>({
     // return new ArcLayer<DataT>({
